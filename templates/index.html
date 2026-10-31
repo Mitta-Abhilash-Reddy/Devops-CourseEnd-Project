@@ -1,0 +1,18 @@
+<!doctype html>
+<title>Library Book Tracker</title>
+<style>body{font-family:sans-serif;max-width:720px;margin:2rem auto}td,th{padding:4px 10px;border-bottom:1px solid #ddd}</style>
+<h1>Library Book Tracker</h1>
+<form method="post" action="/add">
+  <input name="book" placeholder="Book title" required>
+  <input name="student" placeholder="Student name / roll no" required>
+  <button>Issue</button>
+</form>
+<form method="get"><input name="q" value="{{ q }}" placeholder="Search"><button>Search</button></form>
+<table>
+  <tr><th>ID</th><th>Book</th><th>Student</th><th>Issued</th><th>Status</th></tr>
+  {% for r in rows %}
+  <tr><td>{{ r.id }}</td><td>{{ r.book }}</td><td>{{ r.student }}</td><td>{{ r.issued_on }}</td>
+  <td>{% if r.returned %}Returned{% else %}
+    <form method="post" action="/return/{{ r.id }}"><button>Mark returned</button></form>{% endif %}</td></tr>
+  {% endfor %}
+</table>
